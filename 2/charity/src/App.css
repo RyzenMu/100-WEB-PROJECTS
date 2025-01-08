@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  box-sizing: content-box;
+  background-color: lightsalmon;
+}
+
+/* for pc */
+@media (min-width: 768px) {
+  .header-social-media {
+    display: flex;
+    justify-content: space-around;
+  }
+  .burger {
+    display: none;
+  }
+}
+
+/* For Tab */
+@media (min-width: 481px) and (max-width: 767px) {
+  .header-social-media {
+    display: flex;
+    justify-content: center;
+  }
+  .burger {
+    display: none;
+  }
+}
+
+/* For mobile devices (max-width: 599px) */
+@media (max-width: 480px) {
+  .header-social-media {
+    display: none;
+  }
+  .burger {
+    height: 3px;
+    border: 2px solid black;
+    width: 30px;
+    background-color: black;
+    margin-top: 2px;
+    justify-items: end;
+  }
+}
