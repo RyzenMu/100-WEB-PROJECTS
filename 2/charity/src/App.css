@@ -1,11 +1,39 @@
 * {
   margin: 0;
   box-sizing: content-box;
-  background-color: lightsalmon;
+  background-color: lightgray;
+  color: black;
+}
+
+.main-header {
+  border: 5px solid black;
+  height: 15%;
+  margin-top: 5%;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu {
+  display: flex;
+  gap: 12%;
+}
+
+.main-header-right {
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+}
+
+.social-media {
+  background-color: blueviolet;
 }
 
 /* for pc */
 @media (min-width: 768px) {
+  * {
+    font-size: 30px;
+  }
   .header-social-media {
     display: flex;
     justify-content: space-around;
@@ -13,10 +41,24 @@
   .burger {
     display: none;
   }
+  .header-social-media-mobile {
+    display: none;
+  }
+  .burger-group {
+    display: none;
+  }
+  .social-media {
+    margin-bottom: 2px solid black;
+    height: 5%;
+    background-color: aliceblue;
+  }
 }
 
 /* For Tab */
 @media (min-width: 481px) and (max-width: 767px) {
+  * {
+    font-size: 20px;
+  }
   .header-social-media {
     display: flex;
     justify-content: center;
@@ -24,19 +66,47 @@
   .burger {
     display: none;
   }
+  .header-social-media-mobile {
+    display: none;
+  }
+  .burger-group {
+    display: none;
+  }
+  .social-media {
+    margin-bottom: 2px solid black;
+    height: 5%;
+    background-color: aliceblue;
+  }
 }
 
 /* For mobile devices (max-width: 599px) */
 @media (max-width: 480px) {
+  * {
+    font-size: 15px;
+  }
   .header-social-media {
     display: none;
   }
   .burger {
     height: 3px;
-    border: 2px solid black;
+    border: 2px solid whitesmoke;
     width: 30px;
     background-color: black;
-    margin-top: 2px;
+    margin-top: 4px;
     justify-items: end;
+  }
+  .burger-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2%;
+  }
+  .social-media {
+    margin-bottom: 2px solid black;
+    height: 5%;
+    background-color: aliceblue;
+  }
+
+  .facebook-icon {
+    display: none;
   }
 }
