@@ -3,20 +3,40 @@
   box-sizing: content-box;
   background-color: lightgray;
   color: black;
+  font-family: sans-serif;
+}
+
+.social-media {
+  background-color: blueviolet;
+  margin-top: 15px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.header-social-media-right,
+.header-social-media-left {
+  display: flex;
+  gap: 25%;
+  text-wrap: nowrap;
+}
+
+.header-social-media-right select {
+  border: none;
+  height: 45px;
 }
 
 .main-header {
-  border: 5px solid black;
   height: 15%;
-  margin-top: 5%;
+  margin-top: 1px;
+  margin-bottom: 5px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .menu {
   display: flex;
   gap: 12%;
+  text-wrap: nowrap;
 }
 
 .main-header-right {
@@ -25,8 +45,32 @@
   gap: 5%;
 }
 
-.social-media {
-  background-color: blueviolet;
+.icon {
+  height: 35px;
+}
+
+.logo {
+  font-weight: bolder;
+}
+
+.main-header button {
+  border: none;
+  background-color: rgba(0, 255, 255, 0.244);
+}
+
+.section-1 {
+  background-image: url("./img/boy-studying.jpg");
+  min-height: 30vh;
+  background-size: cover;
+  color: aliceblue;
+  align-content: center;
+  text-align: right;
+  font-size: 225%;
+}
+
+.section-1 .section-1-text {
+  background-color: rgba(0, 0, 0, 0);
+  color: aliceblue;
 }
 
 /* for pc */
@@ -36,7 +80,7 @@
   }
   .header-social-media {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
   }
   .burger {
     display: none;
@@ -44,13 +88,19 @@
   .header-social-media-mobile {
     display: none;
   }
-  .burger-group {
+  .header-group {
     display: none;
   }
   .social-media {
     margin-bottom: 2px solid black;
     height: 5%;
     background-color: aliceblue;
+  }
+  .section-1 {
+    min-height: 88vh;
+  }
+  .section-1 .section-1-text {
+    font-size: 44px;
   }
 }
 
@@ -61,7 +111,7 @@
   }
   .header-social-media {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
   }
   .burger {
     display: none;
@@ -69,13 +119,16 @@
   .header-social-media-mobile {
     display: none;
   }
-  .burger-group {
+  .header-group {
     display: none;
   }
   .social-media {
     margin-bottom: 2px solid black;
     height: 5%;
     background-color: aliceblue;
+  }
+  .section-1 .section-1-text {
+    font-size: 33px;
   }
 }
 
@@ -95,10 +148,14 @@
     margin-top: 4px;
     justify-items: end;
   }
-  .burger-group {
+  .header-group {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-evenly;
     gap: 2%;
+  }
+
+  .header-group button {
+    border: none;
   }
   .social-media {
     margin-bottom: 2px solid black;
@@ -108,5 +165,24 @@
 
   .facebook-icon {
     display: none;
+  }
+
+  .main-header {
+    display: none;
+  }
+
+  .menu-mobile li {
+    list-style: none;
+  }
+
+  .header-social-media-right-mobile button {
+    background-color: rgba(0, 255, 255, 0.345);
+  }
+
+  .section-1 {
+    min-height: 20vh;
+  }
+  .section-1 .section-1-text {
+    font-size: 22px;
   }
 }
