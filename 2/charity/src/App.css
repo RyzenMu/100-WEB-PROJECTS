@@ -73,6 +73,34 @@
   color: aliceblue;
 }
 
+.section-2 {
+  padding: 5%;
+}
+
+.section-2-title {
+  text-align: center;
+  margin-bottom: 2%;
+}
+
+.section-2-title p {
+  color: green;
+}
+
+.section-2-title h3 {
+  font-size: 2rem;
+}
+.section-2-cards {
+  display: flex;
+  justify-content: space-around;
+}
+
+.section-2-each-card {
+  border: 2px solid black;
+  margin-left: 1%;
+  margin-right: 1%;
+  justify-items: center;
+}
+
 /* for pc */
 @media (min-width: 768px) {
   * {
