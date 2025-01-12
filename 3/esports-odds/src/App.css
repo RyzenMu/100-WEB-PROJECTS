@@ -1,0 +1,25 @@
+* {
+  background-color: black;
+  color: antiquewhite;
+  font-family: sans-serif;
+}
+
+.table {
+  font-size: 22px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  border-bottom: 1px solid white;
+  margin-bottom: 50px;
+  justify-content: center;
+  justify-items: center;
+  gap: 5px;
+}
+
+.points {
+  background-color: brown;
+}
+
+input {
+  width: 20px;
+  background-color: aliceblue;
+}
