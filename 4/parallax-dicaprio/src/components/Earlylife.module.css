@@ -1,0 +1,39 @@
+.image1 {
+  background-image: url("../assets/images/dicaprio-earlylife-1.png");
+  min-height: 100vh;
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.image2 {
+  background-image: url("../assets/images/dicaprio-earlylife-2.png");
+  min-height: 100vh;
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.image3 {
+  background-image: url("../assets/images/dicaprio-earlylife-3.png");
+  min-height: 100vh;
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.image4 {
+  background-image: url("../assets/images/dicaprio-earlylife-4.png");
+  min-height: 100vh;
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.text {
+  background-color: black;
+  color: white;
+  font-size: 2.5rem;
+}

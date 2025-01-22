@@ -1,0 +1,17 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  font-size: 80%;
+  gap: 2rem;
+  text-align: right;
+}
+
+.menuItem {
+  text-decoration: none;
+  color: black;
+}
+
+.menuItem:hover {
+  transform: scale(1.05);
+  transition: 0.3s ease-in-out;
+}
