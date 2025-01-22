@@ -1,0 +1,27 @@
+.grid {
+  display: grid;
+  grid-template-areas:
+    "M1 M1 M1 M3"
+    "M2 M2 M2 M4"
+    "M5 M5 M5 M4";
+}
+
+.movie1 {
+  grid-area: M1;
+}
+
+.movie2 {
+  grid-area: M2;
+}
+
+.movie3 {
+  grid-area: M3;
+}
+
+.movie4 {
+  grid-area: M4;
+}
+
+.movie5 {
+  grid-area: M5;
+}

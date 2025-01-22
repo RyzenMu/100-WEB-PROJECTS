@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+.app {
+  font-family: "Roboto", serif;
+}
+
+.hero {
+  min-height: 100vh;
+  background-image: url("../assets/images/dicaprio-main.png");
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 3%;
+  font-size: 233%;
+}
+
+.hide {
+  display: none;
+}
