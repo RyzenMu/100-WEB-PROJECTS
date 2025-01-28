@@ -1,10 +1,11 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 
 // creating states using useReducer
 const initialValue = {
   username: "sami",
   password: "000",
   isLoggedin: false,
+  data: [],
 };
 
 function reducer(state, action) {
@@ -26,6 +27,24 @@ const LoginContextC = createContext();
 
 /* eslint-disable react/prop-types */
 function LoginContextProvider({ children }) {
+  //fetching data
+  useEffect(function () {
+    async function fetchData() {
+      try {
+        const res = await fetch("http://localhost:8000/loginCredentials");
+        const data = await res.json();
+        initialValue.username = data[0].user1;
+        initialValue.password = data[0].password;
+        initialValue.data = data;
+        console.log("The changed initial value =", initialValue);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, []);
+
+  //context
   const [{ username, password, isLoggedin }, dispatch] = useReducer(
     reducer,
     initialValue
