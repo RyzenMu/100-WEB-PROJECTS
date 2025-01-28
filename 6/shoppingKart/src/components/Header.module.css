@@ -1,0 +1,67 @@
+.body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-weight: bolder;
+}
+
+h1 {
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  background-color: black;
+  color: wheat;
+  width: 100vw;
+  margin: 0 0;
+  padding: 0 0;
+  font-family: "Courier New", Courier, monospace;
+  min-height: 50px;
+}
+
+.mainHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 2%;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.5rem;
+  box-shadow: 5px 10px 10px rgba(1, 1, 1, 0.5);
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  background-color: white;
+}
+
+.products,
+.icons {
+  display: flex;
+  gap: 10%;
+}
+
+@media (max-width: 450px) {
+  h1 {
+    min-width: 100vw;
+    text-wrap: wrap;
+    background-color: black;
+  }
+
+  .mainHeader,
+  .products,
+  .icons {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 1400px) {
+  h1 {
+    min-width: 100vw;
+    text-wrap: wrap;
+    background-color: black;
+  }
+
+  .mainHeader,
+  .products,
+  .icons {
+    flex-direction: column;
+  }
+}

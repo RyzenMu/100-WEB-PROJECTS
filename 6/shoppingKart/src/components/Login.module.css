@@ -1,0 +1,32 @@
+.login {
+  display: grid;
+  place-items: center;
+  place-content: center;
+  min-height: 100vh;
+  background-color: grey;
+}
+
+.login .box {
+  display: grid;
+  width: 50%;
+  background-color: whitesmoke;
+  grid-template-columns: 1fr 1fr;
+  gap: 5%;
+  margin-top: 50px;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.button {
+  padding: 10px;
+  margin-left: 250px;
+}
+
+.login input {
+  margin-left: -200px;
+}
+
+.login label {
+  margin-left: -200px;
+}
