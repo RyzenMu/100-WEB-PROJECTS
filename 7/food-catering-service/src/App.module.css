@@ -1,0 +1,49 @@
+.app {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+.surrounding {
+  border: 5px solid red;
+  display: grid;
+  place-items: center;
+  height: 50vh;
+  width: 50vw;
+  border-bottom: 2px solid black;
+}
+
+.button {
+  position: relative;
+  padding: 10px 20px;
+  background: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.button::after {
+  position: absolute;
+  content: "This is a pop-over";
+  top: -100px;
+  color: #3498db;
+  left: 50%;
+  transform: translatex(-50%);
+  background: black;
+  color: white;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 2.8s ease-in-out;
+}
+
+.button:hover {
+  background: linear-gradient(to right, #ff6a00, #ee0979, #8e54e9, #4776e6);
+}
+
+.button:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
