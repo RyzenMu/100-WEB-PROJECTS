@@ -1,0 +1,36 @@
+.carousel {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.carousel_container {
+  background-color: rgba(1, 1, 1, 0.2);
+  width: calc(100vw-25px);
+  height: 12vh;
+  display: flex;
+  border: 2px solid red;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.image {
+  display: grid;
+  place-items: center;
+  padding: 1%;
+  border: 2px solid black;
+  animation: moveleft 17s linear infinite;
+}
+
+@keyframes moveleft {
+  from {
+    transform: translateX(600px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+.left {
+  transform: translateX(600px);
+}
