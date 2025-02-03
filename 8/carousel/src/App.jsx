@@ -1,9 +1,9 @@
-import styles from "./App.module.css";
+import Carousel from "../src/components/Carousel.jsx";
 
 function App() {
   return (
     <div>
-      <h1 className={styles.app_h1}>Hello vite</h1>
+      <Carousel />
     </div>
   );
 }
