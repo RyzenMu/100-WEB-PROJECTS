@@ -1,22 +1,16 @@
 import styles from "./Carousel.module.css";
 
 function Carousel() {
-  let index = 0;
-  function leftButton(step) {
-    // const images = document.querySelectorAll(`.${styles.image}`);
-    const total = 5;
-    index = (index + step + total) % total;
-    console.log(index);
-    // images.forEach((item) => {
-    //   item.classList.remove(styles.image);
-    //   item.classList.add(styles.left);
-    // });
+  function leftButton() {
+    const image = document.querySelectorAll(`.${styles.image}`);
+    image.forEach((img) => img.classList.remove(styles.image));
+    image.forEach((img) => img.classList.add(styles.left));
   }
   return (
     <div className={styles.carousel}>
       <>
         <p>Carousel</p>
-        <button onClick={leftButton(-1)}>left</button>
+        <button onClick={leftButton}>left</button>
         <button>right</button>
       </>
 
