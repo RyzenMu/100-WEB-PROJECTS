@@ -1,0 +1,38 @@
+.header {
+  background-color: orangered;
+  color: aliceblue;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2%;
+}
+
+ul {
+  list-style-type: none; /* Remove default bullets */
+  padding-left: 0; /* Remove default padding */
+  background-color: orangered;
+}
+
+li {
+  position: relative;
+  padding-left: 25px; /* Space for the image */
+  margin-bottom: 10px; /* Space between list items */
+  background-color: orangered;
+}
+
+li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px; /* Adjust image width */
+  height: 20px; /* Adjust image height */
+  background-image: url("../assets/leaf.png"); /* Replace with your image URL */
+  background-size: cover; /* Ensure the image fits */
+}
+
+.left,
+.right {
+  display: flex;
+  gap: 5px;
+}
