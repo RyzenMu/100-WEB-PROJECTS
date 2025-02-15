@@ -1,0 +1,8 @@
+.pageNotFound {
+  background-color: #fff;
+  color: #333;
+  font-size: 33px;
+  display: grid;
+  place-items: center;
+  height: 90vh;
+}
