@@ -1,0 +1,96 @@
+* {
+  background-color: blue;
+}
+
+.accordionContainer {
+  background-color: aliceblue;
+  display: grid;
+  place-items: center;
+  height: 30vh;
+  width: 50vw;
+  place-self: center;
+  place-content: center;
+  align-self: center;
+  align-items: center;
+  align-content: center;
+  margin-top: 100px;
+  padding: 1% 2%;
+}
+
+.accordionContainer h1,
+.accordionContainer div {
+  background-color: aliceblue;
+}
+
+.accordionContainer .question {
+  display: block;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding: 2% 0;
+  border-radius: 20px;
+  border: 2px solid black;
+  margin: 2% 0;
+}
+
+.answer {
+  padding: 2%;
+  margin: 2% 0;
+  text-align: justify;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  transition: max-height 0.3s ease-out;
+}
+
+.toggle {
+  display: none;
+}
+
+.menuContainer {
+  background-color: aliceblue;
+  place-items: center;
+  width: 50vw;
+  place-self: center;
+  margin: 30px 20px;
+}
+
+.menuContainer ul {
+  display: flex;
+  background-color: aliceblue;
+  gap: 40px;
+}
+
+.menuContainer ul li {
+  text-decoration: none;
+  background-color: aliceblue;
+  list-style-type: none;
+}
+
+.menuContainer .submenu {
+  display: none;
+}
+
+.menu1 {
+  display: block;
+}
+
+.menu2 {
+  display: block;
+}
+
+.menu3 {
+  display: block;
+}
+.menuContainer ul li .showS1 {
+  color: red;
+  display: block;
+}
+
+.menuContainer ul li .showS2 {
+  color: red;
+  display: block;
+}
+.menuContainer ul li .showS3 {
+  color: red;
+  display: block;
+}
