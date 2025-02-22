@@ -1,0 +1,17 @@
+* {
+    background-color: rgb(156, 202, 187);
+}
+
+.card, .card p, .card button {
+    margin: 20px 10px;
+    background-color: rgb(206, 200, 245);
+}
+
+li {
+    list-style-type: none;
+    justify-self: end;
+    background-color: aliceblue;
+    border-radius: 5px;
+    min-height: 30px;
+    align-items: center;
+}

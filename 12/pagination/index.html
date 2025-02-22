@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Count Files in Folder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Select Files to Count</h2>
+  <input type="file" id="fileInput" multiple>
+  <p id="fileCount">Number of files: 0</p>
+  <div class="buttons">
+    <button class="left">Previous</button>
+    <button class="right">Next</button>
+  </div>
+  <ul id = 'unorderedList'>
+    
+  </ul>
+
+
+  <script>
+
+    let numberOfPages = 0
+
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+      const files = event.target.files;  // Get the list of selected files
+      console.log(files);
+      console.log(typeof files)
+      const fileCount = files.length;    // Count the files
+      document.getElementById('fileCount').innerText = `Number of files: ${fileCount}`;
+    });
+    const unorderedList = document.getElementById('unorderedList');
+
+    const leftButton = document.querySelector('.left');
+    const rightButton = document.querySelector('.right');
+    
+    leftButton.addEventListener('click', ()=> {
+      numberOfPages -= 1;
+      console.log("number of pages ", numberOfPages);
+     displayPics();
+    }    
+    );
+    
+    rightButton.addEventListener('click', ()=> {
+      numberOfPages += 1;
+      console.log("number of pages ", numberOfPages);
+      displayPics();
+    }
+    );
+
+    function displayPics() {
+      unorderedList.innerHTML = '';
+      if (numberOfPages >=0 && numberOfPages < 8) {
+      console.log(`displaying ${(numberOfPages*10)+1} and ${(numberOfPages*10)+10} `);
+      for (i=(numberOfPages*10)+1; i <= (numberOfPages*10)+10; i++) {
+        const liTag = document.createElement('img');
+    liTag.src = `./freePics/img (${i}).jpg`
+    unorderedList.appendChild(liTag);
+    }
+    }
+
+    }
+    console.log(`displaying ${(numberOfPages*10)+1} and ${(numberOfPages*10)+10} `)
+        
+    
+  </script>
+</body>
+</html>
