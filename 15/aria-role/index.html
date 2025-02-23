@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aria Role + Table with Filters</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <table aria-role="table" aria-label="Monitor Price List">
+  <thead role="rowgroup">
+    <tr role="row">
+      <th role="columnheader">
+        S.No
+      </th>
+      <th role="columnheader">
+        Brand Name
+      </th>
+      <th role="columnheader">
+        Size
+      </th>
+      <th role="columnheader">
+        Price
+      </th>  
+    
+  </thead> 
+  <div class="tbody" role="rowgroup">
+    <tr class="tr" role="row">
+      <td role="cell">
+1
+      </td>
+      <td class="mname" role="cell">
+        ViewSonic VA1655 16 Inch Portable Monitor
+      </td>
+      <td role="cell">
+        16
+      </td>
+      <td role="cell">
+        11499
+      </td>      
+    </tr>
+    <tr class="tr" role="row">
+      <td role="cell">
+2
+      </td>
+      <td class="mname" role="cell">
+        MSI PRO MP161 E2 15.6 inch Full HD Portable Monitor
+      </td>
+      <td role="cell">
+        15.6
+      </td>
+      <td role="cell">
+        14986
+      </td>      
+    </tr>
+    <tr class="tr" role="row">
+      <td role="cell">
+3
+      </td>
+      <td class="mname" role="cell">
+        Dell 14" Portable Monitor 12MXN
+      </td>
+      <td role="cell">
+        14
+      </td>
+      <td role="cell">
+        28098
+      </td>      
+    </tr>
+    <tr class="tr" role="row">
+      <td role="cell">
+4
+      </td>
+      <td class="mname" role="cell">
+        Zebronics Pixigo A16 Portable Monitor
+      </td>
+      <td role="cell">
+        15.6
+      </td>
+      <td role="cell">
+        9999
+      </td>      
+    </tr>
+    <tr class="tr" role="row">
+      <td role="cell">
+5
+      </td>
+      <td class="mname" role="cell">
+        Arzopa A1M Portable Laptop Monitor
+      </td>
+      <td role="cell">
+        15.6
+      </td>
+      <td role="cell">
+        14394
+      </td>      
+    </tr>
+    <tr class="tr" role="row">
+      <td role="cell">
+6
+      </td>
+      <td class="mname" role="cell">
+        Acer PM161QB 15.6" Portable IPS Monitor
+      </td>
+      <td role="cell">
+        15.6
+      </td>
+      <td role="cell">
+        12700
+      </td>      
+    </tr>
+  </div>
+ </table>
+ <br>
+<div class="search">
+  <input type="text"/>
+</div>
+
+  <script>
+    const mnameNodeArray = document.querySelectorAll('.mname');
+      const searchInput = document.querySelector('.search input');
+      searchInput.addEventListener('input', searchf)
+      const mnameArr = [];
+      mnameNodeArray.forEach(item => {
+        mnameArr.push(item.innerText)
+      })
+      function searchf(){
+        const filteredArr = mnameArr.filter(item => item.includes(searchInput.value));
+      console.log("Filtered array", filteredArr);
+      }
+      
+     
+      
+  </script>
+</body>
+</html>
