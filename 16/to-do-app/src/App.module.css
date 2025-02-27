@@ -1,0 +1,65 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.body {
+  background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+  height: 100vh;
+  display: grid;
+}
+
+.body .mainContainer {
+  background: linear-gradient(
+    to bottom,
+    rgba(209, 206, 206, 0.5),
+    rgba(200, 200, 200, 0.5)
+  );
+  display: grid;
+  place-items: center;
+  height: 60%;
+  width: 60%;
+  place-self: center;
+}
+
+.card {
+  width: 100%;
+  margin: 0;
+}
+
+.subject {
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.2)
+  );
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.list ul li {
+  padding-left: 20%;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+  list-style-type: decimal;
+  list-style-position: inside;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+button {
+  width: 10%;
+  height: 15%;
+  border-radius: 10px;
+  margin-left: 10%;
+}
