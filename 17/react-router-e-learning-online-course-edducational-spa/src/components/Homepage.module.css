@@ -1,0 +1,21 @@
+.mainHeading {
+  text-align: center;
+  margin-top: 2%;
+  border: 5px dotted red;
+}
+
+.featureCard {
+  display: flex;
+  border: 3px solid #333;
+  width: 30%;
+  margin: 2%;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+}
+
+.features h2 {
+  display: block;
+}
