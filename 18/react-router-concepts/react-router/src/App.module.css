@@ -1,0 +1,8 @@
+
+.active button {
+    color: red;
+}
+
+.inactive button {
+    color: blue;
+}
