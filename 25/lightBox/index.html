@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light Box</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .gallery {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .thumbnail {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.1);
+        }
+
+        .lightbox img{
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 36px;
+            color: aliceblue;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery">
+        <img src="image (22).jpg"  alt="Image 22" class="thumbnail" onclick="openLightbox('image (22).jpg')">
+        <img src="image (23).jpg" alt="Image 23" class="thumbnail" onclick="openLightbox('image (23).jpg')">
+        <img src="image (24).jpg" alt="Image 24" class="thumbnail" onclick="openLightbox('image (24).jpg')">
+    </div>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-image" src="" alt="Expanded Image" >
+    </div>
+    <script>
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightbox-image');
+            lightbox.style.display = 'flex';
+            lightboxImage.src = imageSrc;
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
