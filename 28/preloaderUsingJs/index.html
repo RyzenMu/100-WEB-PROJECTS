@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preloader using JS</title>
+    <style>
+        .content {
+            margin: 10%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {transform: rotate(0deg);}
+            100%{transform: rotate(360deg);}
+        }
+
+        .content {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+    <div class="content">
+        <h1>Welcome to the website</h1>
+        <p>your content will appear here once the preloader is gone!</p>
+    </div>
+    <script>
+        // wait for the window to load
+        window.addEventListener('load', function(){
+            // Hide the preloader
+            document.querySelector('.preloader').style.display = 'none';
+            // show the actual content
+            document.querySelector('.content').style.display = 'block';
+        })
+    </script>
+</body>
+</html>
