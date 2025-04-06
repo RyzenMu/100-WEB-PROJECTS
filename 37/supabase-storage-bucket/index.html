@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        #images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        #images img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.2s;
+            display: block;
+        }
+        #images img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Supabase Bucket Storage</h1>
+        <div id="images"></div>
+    </div>
+    <script>
+        for (let i=1; i<=46; i++) {
+            const img = document.createElement('img');
+            img.src = `https://vxexigrndbgzgbnbvhtr.supabase.co/storage/v1/object/public/pexels-man/man${i}.jpg`;
+            img.width = 300;
+            document.getElementById('images').appendChild(img);
+        }
+    </script>
+</body>
+</html>
