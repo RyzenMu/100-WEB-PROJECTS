@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: lightblue;
+        }
+        #openModal {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+        .modal {
+            display: none ;
+            position: absolute; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: auto; /* Could be more or less, depending on screen size */
+            border-radius: 5px;
+        }
+        .show {
+            display: flex;
+        }
+
+    </style>
+</head>
+<body>
+    <button id="openModal">Open Modal</button>
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Modal Header</h2>
+            <p>This is a simple modal example.</p>
+        </div>
+    </div>
+    <script>
+        const modal = document.querySelector('.modal');
+        const openModalButton = document.getElementById('openModal');
+        const closeModalButton = document.querySelector('.close');
+
+        openModalButton.addEventListener('click', () => {
+            modal.classList.toggle('show');
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            modal.classList.toggle('show');
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.classList.toggle('show');
+            }
+        });
+    </script>
+</body>
+</html>
