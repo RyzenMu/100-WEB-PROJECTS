@@ -1,0 +1,16 @@
+.darkmode {
+  background-color: rgba(0, 0, 0, 0.749);
+  color: white;
+  height: 100vh;
+}
+
+button {
+  padding: 10px;
+  font-size: 32px;
+  border-radius: 50px;
+  margin: 5% 10%;
+}
+
+p{
+  font-size: 32px;
+}
