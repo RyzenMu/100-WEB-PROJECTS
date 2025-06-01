@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Secure payment</title>
+        <style>
+            * {
+                margin: 0;
+                padding : 0;
+                box-sizing: border-box;    
+            }
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-width: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            }
+            .payment-container {
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                overflow: hidden;
+                max-width: 900px;
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                min-height: 600px;
+            }
+            .order-summary {
+                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+                padding: 40px;
+                color: white;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            .summary-header h2 {
+                font-size: 28px;
+                margin-bottom: 30px;
+                font-weight: 300;
+            }
+            .order-item {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            .order-item:last-child {
+                border-bottom : none;
+                font-weight: bold;
+                font-size: 24px;
+                margin-top: 20px;
+                padding-top: 20px;
+                border-top: 2px solid rgba(255, 255, 255, 0.3);
+            }
+            .payment-form {
+                padding: 40px;
+                background: white;
+            }
+            .form-header {
+                margin-bottom: 30px;
+            }
+            .form-header h1 {
+                color: #333;
+                font-size: 32px;
+                margin-bottom: 10px;
+            }
+            .security-badge {
+                display: flex;
+                align-items: center;
+                color: #28a745;
+                font-size: 14px;
+                margin-bottom: 30px;
+            }
+            .security-badge ::before {
+                content: '🔒';
+                margin-right: 8px;
+            }
+            .form-group {
+                margin-bottom: 25px;
+            }
+            .form-row {
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+                gap: 15px;
+            }
+            label {
+                display: block;
+                margin-bottom: 8px;
+                color: #555;
+                font-weight: 500;
+            }
+            input, select {
+                width: 100%;
+                padding: 15px;
+                border: 2px solid #e1e8ed;
+                border-radius: 10px;
+                font-size: 16px;
+                transition: all 0.3s ease;
+                background: #f8f9fa;
+            }
+            input:focus, select:focus {
+                outline: none;
+                border-color: #667eea;
+                background: white;
+                box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1   );
+            }
+            .error {
+                border-color: #dc3545 !important;
+                background: #fff5f5;
+            }
+            .error-message {
+                color: #dc3545;
+                font-size: 14px;
+                margin-top: 5px;
+                display: none;
+            }
+            .pay-button {
+                width: 100px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                padding: 18px;
+                border-radius: 12px;
+                font-size: 18px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                margin-top: 20px;
+                text-transform:  uppercase;
+                letter-spacing: 1px;
+            }
+            .pay-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(102126, 234, 0.3);                
+            }
+            .pay-button:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none;
+            }
+            .loading {
+                display: none;
+                position: relative;
+                overflow: hidden;
+            }
+            .loading::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg , transparent, rgba(255,255,255,0.4), transparent);
+                animation: loading 1.5s infinite;
+            }
+            @keyframes loading {
+                0% {left: -100%;}
+                100% {left: 100%;}
+            }
+            .success-message {
+                display: none;
+                text-align: center;
+                padding: 40px;
+                color: #28a745;
+            }
+            .success-message h2 {
+                font-size: 32px;
+                margin-bottom: 20px;
+            }
+            .checkmark {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                background: #28a745;
+                margin: 0 auto 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 40px;
+                color: white;
+                animation: checkmark 0.6s ease-in-out;
+            }
+            @keyframes checkmark {
+                0% {transform: scale(0);}
+                50% {transform: scale(1.2);}
+                100% {transform: scale(1);}
+            }
+            @media (max-width: 768px) {
+                .payment-container {
+                    grid-template-columns: 1fr;
+                    max-width: 500px;
+                }
+                .order-summary {
+                    order: 2;
+                }
+                .payment-form {
+                    order: 1;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="payment-container">
+            <div class="order-summary">
+                <div class="summary-header">
+                    <h2>order summary</h2>
+                    <div class="order-items">
+                        <div class="order-item">
+                            <span>premium Plan (1 year) </span>
+                            <span>$99.00</span>
+                        </div>
+                         <div class="order-item">
+                            <span>Tax</span>
+                            <span>$8.91</span>
+                        </div>
+                         <div class="order-item">
+                            <span> Total </span>
+                            <span>$107.91</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="payment-form">
+            <div class="form-header">
+                <h1>Payment Details</h1>
+                <div class="security-badge">
+                    Your payment information is secure
+                </div>
+            </div>
+            <form action="" id="paymentForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email"  id="email" name="email" required>
+                    <div class="error-message">
+                        Please enter a valid email address
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cardNumber">card number</label>
+                    <input type="text"  id="cardNumber" name="cardNumber" required maxlength="19">
+                    <div class="error-message">
+                        Please enter a valid card number  
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="expiryDate">expiry date</label>
+                    <input type="text"  id="expiryDate" name="expiryDate" required maxlength="5">
+                    <div class="error-message">
+                        Please enter a valid expiry date  
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text"  id="cvv" name="cvv" required maxlength="5">
+                    <div class="error-message">
+                        Please enter a valid cvv  
+                    </div>
+                     <div class="form-group">
+                    <label for="cardName">Name on Card</label>
+                    <input type="text"  id="cardName" name="cardName" required >
+                    <div class="error-message">
+                        Please enter the name on the card
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select name="country" id="country" required>
+                            <option value="">Select Country</option>
+                            <option value="US">United States</option>
+                            <option value="CA">Canada</option>
+                            <option value="GB">Great Britain</option>
+                            <option value="AU">Australia</option>
+                            <option value="In">India</option>
+                        </select>
+                            <div class="error-message">
+                                Please enter a zip code
+                        </div>
+                        <div class="form-group">
+                            <label for="zipcode">ZIP Code</label>
+                            <input type="text" id="zipCode" name="zipCode" >
+                            <div class="error-message">
+                                Please enter your zip code
+                            </div>
+                        </div>
+                        <button type="submit" class="pay-button" id="payButton">
+                            Complete Payment - $107.91    
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="success-message" id="successMessage">
+               <div class="checkmark">
+                <h2>Payment Successfull</h2>
+                <p>Thank you for the purchase. You will receive a confirmtion email shortly</p>
+               </div>     
+            </div>
+        </div>
+        <script>
+            class PaymentProcessor {
+                constructor(){
+                    this.form = document.getElementById('paymentForm');
+                    this.payButton = document.getElementById('payButton');
+                    this.successMessage = document.getElementById('successMessage');
+                    this.initializeEventListeners();
+                }
+
+                initializeEventListeners(){
+                    this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+                    this.form.querySelectorAll('input, select').forEach(field => {
+                        field.addEventListener('blur', ()=> this.validateField(field));
+                        field.addEventListener('input', ()=> this.clearError(field));
+                    })
+                    document.getElementById('cardNumber').addEventListener('input', this.formatCardNumber);
+                    document.getElementById('expiryDate').addEventListener('input', this.formatExpiryDate);
+                    document.getElementById('cvv').addEventListener('input', this.formatCVV);
+                    document.getElementById('cardName').addEventListener('input', this.cadName);
+                }
+
+                
+            }
+        </script>
+    </body>
+</html>

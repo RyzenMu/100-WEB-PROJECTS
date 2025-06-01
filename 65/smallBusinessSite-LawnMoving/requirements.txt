@@ -1,0 +1,12 @@
+
+Summary
+
+I Need a nice looking, simple website build for a lawn mowing and landscaping business Green and Clean Services.
+
+The site should includethe logo at the top, followed by a container with the phone number, then the about-us statement and offer, then below that, pictures of previous work done by the company.
+
+The about us statemen should read, “Kai Truex and Charlie Bullman, [new line] Mowing, pressue washing, and weed pulling”. Followed on the right with the offer statement, ”Free Estimate, just give us a CalL”
+
+HELPFUL: I have attached a proof of concept design to this post. It includes the format for the first half of the site. This should also be informative as to the color scheme. I have also attached a series of 4 before and after photos which need to be organised and displayed below.
+
+The logo has changed since the creation of the proof, so use the attached logo image instead.
