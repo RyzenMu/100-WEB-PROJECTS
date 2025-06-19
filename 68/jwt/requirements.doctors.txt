@@ -1,0 +1,36 @@
+HTML Responsive Page for Doctors
+Posted 6 hours ago
+
+Specialized profiles can help you better highlight your expertise when submitting proposals to jobs like these. Create a specialized profile.
+
+Worldwide
+Send a proposal for: 9 Connects
+Available Connects: 0
+Summary
+
+We need 1 responsive HTML micropage / landing page that shows the most relevant information of a doctor's services. The Page should work perfectly on common browsers and is easy adaptive in regards of colors and content.
+
+Elements:
+
+Top:
+- Doctor's name and logo
+Left:
+- Picture of the doctor.
+- Adress
+- book appointment button(s).
+Right:
+- Welcome text section.
+- Section for offered services
+- review overview and a button linking to a review website (for e.g. Google Reviews).
+- map screenshot and a button linking to Google Maps.
+Footer:
+- Footer with links
+
+Mobile the elements are arranged under each other (responsive).
+
+The design should be modern, medical, but still simple. We will provide design examples we like. As we want to adapt the page for different doctors the source code should be commented and easy to adapt (for e.g. remove elements oder add elements).
+
+$300.00
+Fixed-price
+Intermediate
+Experience Level
