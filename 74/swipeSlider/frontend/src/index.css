@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/* Add base appearance reset */
+.range-slider {
+  -webkit-appearance: none; /* Safari & Chrome */
+  appearance: none;
+  width: 100%;
+  height: 50px;
+  background: transparent; /* Prevent default track rendering */
+}
+
+/* WebKit - Chrome, Safari */
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 40px;
+  width: 40px;
+  background-color: #3b82f6; /* Tailwind blue-500 */
+  border-radius: 9999px;
+  cursor: pointer;
+  border: 2px solid white;
+  margin-top: -16px; /* Align with track height */
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.range-slider::-webkit-slider-runnable-track {
+  height: 8px;
+  background: #adb4bd; /* Tailwind blue-400 */
+  border-radius: 9999px;
+}
+
+/* Firefox */
+.range-slider::-moz-range-thumb {
+  height: 40px;
+  width: 40px;
+  background-color: #3b82f6;
+  border: 2px solid white;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.range-slider::-moz-range-track {
+  height: 8px;
+  background: #adb4bd;
+  border-radius: 9999px;
+}
