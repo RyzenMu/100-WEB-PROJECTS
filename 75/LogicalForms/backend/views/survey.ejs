@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Developer Survey Form</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f1f5f9;
+      padding: 2rem;
+    }
+    form {
+      background-color: white;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #1e293b;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 0.25rem;
+    }
+    .radio-group {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .radio-group label {
+      font-weight: normal;
+    }
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #3b82f6;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+
+  <form method="POST" action="/submit-survey">
+    <h2>AI Developer Survey</h2>
+
+    <label for="name">Full Name</label>
+    <input type="text" name="name" id="name" required />
+
+    <label for="email">Email Address</label>
+    <input type="email" name="email" id="email" required />
+
+    <label for="experience">Total Experience in Software Development (Years)</label>
+    <input type="number" name="experience" id="experience" min="0" required />
+
+    <label for="pythonExp">Experience with Python (Years)</label>
+    <input type="number" name="pythonExp" id="pythonExp" min="0" required />
+
+    <label for="aiExp">Experience in AI/ML Projects (Years)</label>
+    <input type="number" name="aiExp" id="aiExp" min="0" required />
+
+    <label>Expertise in Python:</label>
+    <div class="radio-group">
+      <label><input type="radio" name="pythonExpertise" value="Beginner" required /> Beginner</label>
+      <label><input type="radio" name="pythonExpertise" value="Intermediate" /> Intermediate</label>
+      <label><input type="radio" name="pythonExpertise" value="Advanced" /> Advanced</label>
+    </div>
+
+    <label>Expertise in AI/ML:</label>
+    <div class="radio-group">
+      <label><input type="radio" name="aiExpertise" value="Beginner" required /> Beginner</label>
+      <label><input type="radio" name="aiExpertise" value="Intermediate" /> Intermediate</label>
+      <label><input type="radio" name="aiExpertise" value="Advanced" /> Advanced</label>
+    </div>
+
+    <label for="tools">AI Tools Used (TensorFlow, PyTorch, Scikit-learn, etc.)</label>
+    <input type="text" name="tools" id="tools" />
+
+    <label for="interests">What areas of AI interest you?</label>
+    <textarea name="interests" id="interests" rows="4"></textarea>
+
+    <label for="jobReady">Are you currently looking for AI job roles?</label>
+    <select name="jobReady" id="jobReady" required>
+      <option value="">-- Select --</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+      <option value="Open to offers">Open to offers</option>
+    </select>
+
+    <button type="submit">Submit Survey</button>
+  </form>
+
+</body>
+</html>
