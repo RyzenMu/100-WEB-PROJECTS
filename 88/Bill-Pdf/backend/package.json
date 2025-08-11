@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "dev": "nodemon server.ts",
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "start:prod": "npm run build && npm start",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix"
+  }
+}
