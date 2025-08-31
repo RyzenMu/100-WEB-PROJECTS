@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eye Clinic Management System</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f766e',
+                        'primary-dark': '#134e4a',
+                        secondary: '#06b6d4',
+                        error: '#dc2626'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, createContext, useContext } = React;
+
+        // Types
+        interface Doctor {
+            id: number;
+            name: string;
+            specialization: string;
+            qualification: string;
+            experience: number;
+            fee: number;
+            availability: string;
+            photoUrl?: string;
+        }
+
+        interface Patient {
+            id: number;
+            name: string;
+            age: number;
+            gender: string;
+            history?: string;
+        }
+
+        interface Appointment {
+            id: number;
+            doctorId: number;
+            patientId: number;
+            timeIso: string;
+            status: 'BOOKED' | 'RESCHEDULED' | 'CANCELLED' | 'DONE';
+        }
+
+        interface Treatment {
+            id: number;
+            title: string;
+            description: string;
+            estimatedCost: number;
+            imageUrl?: string;
+        }
+
+        interface Product {
+            id: number;
+            name: string;
+            price: number;
+            description: string;
+            imageUrl?: string;
+        }
+
+        interface TestimonialData {
+            id: number;
+            patientName: string;
+            rating: number;
+            comment: string;
+        }
+
+        interface Achievement {
+            title: string;
+            description: string;
+            year: string;
+        }
+
+        interface FAQItem {
+            question: string;
+            answer: string;
+        }
+
+        // Data Store Context
+        const DataContext = createContext<{
+            doctors: Doctor[];
+            treatments: Treatment[];
+            appointments: Appointment[];
+            patients: Patient[];
+            addAppointment: (appointment: Omit<Appointment, 'id'>) => void;
+            addPatient: (patient: Omit<Patient, 'id'>) => void;
+        } | null>(null);
+
+        // Mock Data
+        const mockDoctors: Doctor[] = [
+            { id: 1, name: "Dr. A. Mehta", specialization: "Cataract", qualification: "MS Ophthalmology", experience: 12, fee: 600, availability: "Mon–Sat 10–6" },
+            { id: 2, name: "Dr. R. Iyer", specialization: "LASIK", qualification: "MS, FPRS", experience: 8, fee: 700, availability: "Tue–Sun 11–7" },
+            { id: 3, name: "Dr. S. Khan", specialization: "Retina", qualification: "MS, FMRF", experience: 10, fee: 800, availability: "Mon–Fri 9–5" }
+        ];
+
+        const mockTreatments: Treatment[] = [
+            { id: 1, title: "LASIK", description: "Laser vision correction.", estimatedCost: 45000 },
+            { id: 2, title: "Cataract Surgery", description: "Lens replacement.", estimatedCost: 30000 },
+            { id: 3, title: "Glaucoma Management", description: "Pressure control.", estimatedCost: 15000 }
+        ];
+
+        const mockProducts: Product[] = [
+            { id: 1, name: "Blue Light Glasses", description: "Protects your eyes from screen glare.", price: 1200 },
+            { id: 2, name: "Daily Contact Lenses", description: "Comfortable all-day wear.", price: 1500 },
+            { id: 3, name: "Reading Glasses", description: "Helps with near vision clarity.", price: 900 }
+        ];
+
+        const mockTestimonials: TestimonialData[] = [
+            { id: 1, patientName: "John Doe", rating: 5, comment: "Great experience! My vision improved after LASIK." },
+            { id: 2, patientName: "Mary Smith", rating: 4, comment: "Doctors were very professional and caring." },
+            { id: 3, patientName: "Rajesh Kumar", rating: 5, comment: "Smooth cataract surgery, highly recommend." }
+        ];
+
+        const mockAchievements: Achievement[] = [
+            { title: "Best Eye Clinic Award", description: "Recognized as the best eye care provider in the city.", year: "2024" },
+            { title: "1000+ Successful LASIK Surgeries", description: "Celebrating over 1000 successful LASIK treatments.", year: "2023" },
+            { title: "ISO Certified Clinic", description: "Achieved ISO 9001 certification for high-quality care.", year: "2022" }
+        ];
+
+        const mockFAQs: FAQItem[] = [
+            { question: "What is the best age for LASIK?", answer: "Typically between 18–40 years with stable vision." },
+            { question: "Do you offer free eye checkups?", answer: "Yes, during our special eye camp days." },
+            { question: "How long does a cataract surgery take?", answer: "Usually 15–30 minutes, with same-day discharge." }
+        ];
+
+        // Data Provider Component
+        const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+            const [doctors] = useState<Doctor[]>(mockDoctors);
+            const [treatments] = useState<Treatment[]>(mockTreatments);
+            const [appointments, setAppointments] = useState<Appointment[]>([]);
+            const [patients, setPatients] = useState<Patient[]>([]);
+
+            const addAppointment = (appointment: Omit<Appointment, 'id'>) => {
+                const newAppointment = { ...appointment, id: Date.now() };
+                setAppointments(prev => [...prev, newAppointment]);
+            };
+
+            const addPatient = (patient: Omit<Patient, 'id'>) => {
+                const newPatient = { ...patient, id: Date.now() };
+                setPatients(prev => [...prev, newPatient]);
+            };
+
+            return (
+                <DataContext.Provider value={{
+                    doctors,
+                    treatments,
+                    appointments,
+                    patients,
+                    addAppointment,
+                    addPatient
+                }}>
+                    {children}
+                </DataContext.Provider>
+            );
+        };
+
+        // Custom Hooks
+        const useData = () => {
+            const context = useContext(DataContext);
+            if (!context) throw new Error('useData must be used within DataProvider');
+            return context;
+        };
+
+        // Navigation Context
+        const NavigationContext = createContext<{
+            currentRoute: string;
+            navigate: (route: string) => void;
+            goBack: () => void;
+        } | null>(null);
+
+        const useNavigation = () => {
+            const context = useContext(NavigationContext);
+            if (!context) throw new Error('useNavigation must be used within NavigationProvider');
+            return context;
+        };
+
+        // Router Component
+        const Router: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+            const [currentRoute, setCurrentRoute] = useState('home');
+            const [history, setHistory] = useState<string[]>(['home']);
+
+            const navigate = (route: string) => {
+                setCurrentRoute(route);
+                setHistory(prev => [...prev, route]);
+            };
+
+            const goBack = () => {
+                if (history.length > 1) {
+                    const newHistory = history.slice(0, -1);
+                    setHistory(newHistory);
+                    setCurrentRoute(newHistory[newHistory.length - 1]);
+                }
+            };
+
+            return (
+                <NavigationContext.Provider value={{ currentRoute, navigate, goBack }}>
+                    {children}
+                </NavigationContext.Provider>
+            );
+        };
+
+        // Components
+        const TopBar: React.FC<{ title: string; showBack?: boolean }> = ({ title, showBack = false }) => {
+            const { goBack } = useNavigation();
+
+            return (
+                <header className="bg-primary text-white p-4 shadow-lg">
+                    <div className="flex items-center gap-4">
+                        {showBack && (
+                            <button onClick={goBack} className="p-2 hover:bg-primary-dark rounded">
+                                ←
+                            </button>
+                        )}
+                        <h1 className="text-xl font-semibold">{title}</h1>
+                    </div>
+                </header>
+            );
+        };
+
+        const BottomNav: React.FC = () => {
+            const { navigate, currentRoute } = useNavigation();
+
+            const navItems = [
+                { route: 'home', label: 'Home', icon: '🏠' },
+                { route: 'doctors', label: 'Doctors', icon: '👨‍⚕️' },
+                { route: 'treatments', label: 'Treatments', icon: '💊' },
+                { route: 'shop', label: 'Shop', icon: '🛒' },
+                { route: 'profile', label: 'Profile', icon: '👤' }
+            ];
+
+            return (
+                <nav className="bg-white border-t border-gray-200 p-2">
+                    <div className="flex justify-around">
+                        {navItems.map(item => (
+                            <button
+                                key={item.route}
+                                onClick={() => navigate(item.route)}
+                                className={`flex flex-col items-center p-2 rounded-lg ${
+                                    currentRoute === item.route 
+                                        ? 'text-primary bg-primary/10' 
+                                        : 'text-gray-600 hover:text-primary'
+                                }`}
+                            >
+                                <span className="text-xl">{item.icon}</span>
+                                <span className="text-xs mt-1">{item.label}</span>
+                            </button>
+                        ))}
+                    </div>
+                </nav>
+            );
+        };
+
+        const LoadingSpinner: React.FC = () => (
+            <div className="flex justify-center items-center h-32">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+        );
+
+        const Card: React.FC<{ children: React.ReactNode; className?: string; onClick?: () => void }> = ({ children, className = '', onClick }) => (
+            <div 
+                className={`bg-white rounded-lg shadow-md p-4 ${onClick ? 'cursor-pointer hover:shadow-lg transition-shadow' : ''} ${className}`}
+                onClick={onClick}
+            >
+                {children}
+            </div>
+        );
+
+        const Button: React.FC<{
+            children: React.ReactNode;
+            onClick: () => void;
+            variant?: 'primary' | 'secondary' | 'danger';
+            disabled?: boolean;
+            className?: string;
+        }> = ({ children, onClick, variant = 'primary', disabled = false, className = '' }) => {
+            const baseClasses = 'px-4 py-2 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed';
+            const variantClasses = {
+                primary: 'bg-primary hover:bg-primary-dark text-white',
+                secondary: 'bg-gray-200 hover:bg-gray-300 text-gray-800',
+                danger: 'bg-error hover:bg-red-700 text-white'
+            };
+
+            return (
+                <button 
+                    className={`${baseClasses} ${variantClasses[variant]} ${className}`}
+                    onClick={onClick}
+                    disabled={disabled}
+                >
+                    {children}
+                </button>
+            );
+        };
+
+        const Input: React.FC<{
+            label: string;
+            value: string;
+            onChange: (value: string) => void;
+            placeholder?: string;
+            type?: string;
+        }> = ({ label, value, onChange, placeholder, type = 'text' }) => (
+            <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">{label}</label>
+                <input
+                    type={type}
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                    placeholder={placeholder}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+            </div>
+        );
+
+        // Screens
+        const HomeScreen: React.FC = () => {
+            const { navigate } = useNavigation();
+
+            return (
+                <div className="p-4 space-y-4">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-6">Welcome to Eye Clinic</h2>
+                    <div className="space-y-3">
+                        <Button onClick={() => navigate('doctors')} className="w-full">
+                            Book Appointment
+                        </Button>
+                        <Button onClick={() => navigate('treatments')} className="w-full">
+                            Treatments
+                        </Button>
+                        <Button onClick={() => navigate('vision')} className="w-full">
+                            Vision Tests
+                        </Button>
+                        <Button onClick={() => navigate('faq')} className="w-full">
+                            FAQs
+                        </Button>
+                        <Button onClick={() => navigate('analytics')} className="w-full">
+                            Analytics
+                        </Button>
+                    </div>
+                </div>
+            );
+        };
+
+        const DoctorsScreen: React.FC = () => {
+            const { doctors } = useData();
+            const { navigate } = useNavigation();
+
+            return (
+                <div className="p-4 space-y-4">
+                    {doctors.map(doctor => (
+                        <Card key={doctor.id} onClick={() => navigate(`doctor/${doctor.id}`)}>
+                            <div className="flex items-center gap-4">
+                                <div className="w-14 h-14 bg-gray-200 rounded-full flex items-center justify-center">
+                                    👨‍⚕️
+                                </div>
+                                <div className="flex-1">
+                                    <h3 className="font-semibold text-lg">{doctor.name}</h3>
+                                    <p className="text-gray-600">{doctor.specialization} • {doctor.experience} yrs • Fee ₹{doctor.fee}</p>
+                                    <p className="text-sm text-gray-500">{doctor.availability}</p>
+                                </div>
+                                <Button onClick={(e) => { e.stopPropagation(); navigate(`book/${doctor.id}`); }}>
+                                    Book
+                                </Button>
+                            </div>
+                        </Card>
+                    ))}
+                </div>
+            );
+        };
+
+        const DoctorDetailScreen: React.FC<{ doctorId: string }> = ({ doctorId }) => {
+            const { doctors } = useData();
+            const { navigate } = useNavigation();
+            const [loading, setLoading] = useState(true);
+            const [doctor, setDoctor] = useState<Doctor | null>(null);
+
+            useEffect(() => {
+                const foundDoctor = doctors.find(d => d.id === parseInt(doctorId));
+                setDoctor(foundDoctor || null);
+                setLoading(false);
+            }, [doctorId, doctors]);
+
+            if (loading) return <LoadingSpinner />;
+
+            if (!doctor) {
+                return (
+                    <div className="p-4 text-center">
+                        <p className="text-gray-600">Doctor not found</p>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="p-4 space-y-4">
+                    <h2 className="text-2xl font-bold">{doctor.name}</h2>
+                    <div className="space-y-2">
+                        <p className="text-lg"><strong>Specialization:</strong> {doctor.specialization}</p>
+                        <p><strong>Qualification:</strong> {doctor.qualification}</p>
+                        <p><strong>Experience:</strong> {doctor.experience} years</p>
+                        <p><strong>Consultation Fee:</strong> ₹{doctor.fee}</p>
+                        <p className="text-primary"><strong>Available:</strong> {doctor.availability}</p>
+                    </div>
+                    <Button onClick={() => navigate(`book/${doctor.id}`)} className="w-full">
+                        Book Appointment
+                    </Button>
+                </div>
+            );
+        };
+
+        const BookAppointmentScreen: React.FC<{ doctorId: string }> = ({ doctorId }) => {
+            const [name, setName] = useState('');
+            const [age, setAge] = useState('');
+            const [gender, setGender] = useState('');
+            const [time, setTime] = useState('');
+            const [loading, setLoading] = useState(false);
+            const { addAppointment, addPatient } = useData();
+            const { goBack } = useNavigation();
+
+            const handleSubmit = async () => {
+                setLoading(true);
+                
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Add patient first
+                const patientId = Date.now();
+                addPatient({
+                    name,
+                    age: parseInt(age) || 0,
+                    gender,
+                    history: ''
+                });
+
+                // Add appointment
+                addAppointment({
+                    doctorId: parseInt(doctorId),
+                    patientId,
+                    timeIso: time,
+                    status: 'BOOKED'
+                });
+
+                setLoading(false);
+                goBack();
+            };
+
+            return (
+                <div className="p-4 space-y-4">
+                    <Input label="Patient Name" value={name} onChange={setName} />
+                    <Input label="Age" value={age} onChange={setAge} type="number" />
+                    <Input label="Gender" value={gender} onChange={setGender} />
+                    <Input 
+                        label="Appointment Time" 
+                        value={time} 
+                        onChange={setTime} 
+                        placeholder="e.g., 2024-01-15 10:30 AM"
+                    />
+                    <Button 
+                        onClick={handleSubmit} 
+                        disabled={loading || !name || !age || !gender || !time}
+                        className="w-full"
+                    >
+                        {loading ? 'Booking...' : 'Confirm Appointment'}
+                    </Button>
+                </div>
+            );
+        };
+
+        const TreatmentsScreen: React.FC = () => {
+            const { treatments } = useData();
+            const { navigate } = useNavigation();
+
+            return (
+                <div className="p-4 space-y-4">
+                    {treatments.map(treatment => (
+                        <Card key={treatment.id} onClick={() => navigate(`treatment/${treatment.id}`)}>
+                            <h3 className="text-lg font-semibold">{treatment.title}</h3>
+                            <p className="text-gray-600 mt-2">{treatment.description}</p>
+                            <p className="text-primary font-semibold mt-2">Est. Cost: ₹{treatment.estimatedCost.toLocaleString()}</p>
+                        </Card>
+                    ))}
+                </div>
+            );
+        };
+
+        const TreatmentDetailScreen: React.FC<{ treatmentId: string }> = ({ treatmentId }) => {
+            const { treatments } = useData();
+            const treatment = treatments.find(t => t.id === parseInt(treatmentId));
+
+            if (!treatment) {
+                return (
+                    <div className="p-4 text-center">
+                        <p className="text-gray-600">Treatment not found</p>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="p-4 space-y-4">
+                    <h2 className="text-2xl font-bold">{treatment.title}</h2>
+                    <p className="text-lg text-gray-700">{treatment.description}</p>
+                    <p className="text-xl font-semibold text-primary">Estimated Cost: ₹{treatment.estimatedCost.toLocaleString()}</p>
+                    <Button className="w-full">Book This Treatment</Button>
+                </div>
+            );
+        };
+
+        const ShopScreen: React.FC = () => {
+            return (
+                <div className="p-4 space-y-4">
+                    {mockProducts.map(product => (
+                        <Card key={product.id}>
+                            <h3 className="text-lg font-semibold">{product.name}</h3>
+                            <p className="text-gray-600 mt-2">{product.description}</p>
+                            <p className="text-lg font-semibold text-primary mt-2">₹{product.price}</p>
+                            <Button className="mt-3">Buy Now</Button>
+                        </Card>
+                    ))}
+                </div>
+            );
+        };
+
+        const VisionTestsScreen: React.FC = () => {
+            return (
+                <div className="p-4 space-y-4">
+                    <h2 className="text-xl font-bold mb-4">Select a Vision Test:</h2>
+                    <Button className="w-full">Snellen Chart Test</Button>
+                    <Button className="w-full">Color Blindness Test</Button>
+                    <Button className="w-full">Amsler Grid Test</Button>
+                </div>
+            );
+        };
+
+        const FAQScreen: React.FC = () => {
+            return (
+                <div className="p-4 space-y-4">
+                    {mockFAQs.map((faq, index) => (
+                        <Card key={index}>
+                            <h3 className="font-semibold text-lg">{faq.question}</h3>
+                            <p className="text-gray-600 mt-2">{faq.answer}</p>
+                        </Card>
+                    ))}
+                </div>
+            );
+        };
+
+        const TestimonialsScreen: React.FC = () => {
+            return (
+                <div className="p-4 space-y-4">
+                    {mockTestimonials.map(testimonial => (
+                        <Card key={testimonial.id}>
+                            <h3 className="font-semibold">{testimonial.patientName}</h3>
+                            <p className="text-gray-600 mt-2">{testimonial.comment}</p>
+                            <div className="mt-2">
+                                <span className="text-yellow-500">{'★'.repeat(testimonial.rating)}</span>
+                                <span className="text-gray-300">{'★'.repeat(5 - testimonial.rating)}</span>
+                            </div>
+                        </Card>
+                    ))}
+                </div>
+            );
+        };
+
+        const AchievementsScreen: React.FC = () => {
+            return (
+                <div className="p-4 space-y-4">
+                    {mockAchievements.map((achievement, index) => (
+                        <Card key={index}>
+                            <h3 className="font-semibold text-lg">{achievement.title}</h3>
+                            <p className="text-gray-600 mt-2">{achievement.description}</p>
+                            <p className="text-sm text-gray-500 mt-2">Year: {achievement.year}</p>
+                        </Card>
+                    ))}
+                </div>
+            );
+        };
+
+        const PatientProfileScreen: React.FC = () => {
+            return (
+                <div className="p-4">
+                    <h2 className="text-xl font-bold mb-4">Welcome to your profile!</h2>
+                    <p className="text-gray-600">Profile management features will be added here.</p>
+                </div>
+            );
+        };
+
+        const AdminDoctorDashboard: React.FC = () => {
+            const { doctors } = useData();
+
+            return (
+                <div className="p-4 space-y-4">
+                    {doctors.map(doctor => (
+                        <Card key={doctor.id}>
+                            <div className="space-y-2">
+                                <p><strong>Name:</strong> {doctor.name}</p>
+                                <p><strong>Specialization:</strong> {doctor.specialization}</p>
+                                <p><strong>Experience:</strong> {doctor.experience} years</p>
+                                <p><strong>Consultation Fee:</strong> ₹{doctor.fee}</p>
+                                <p><strong>Available:</strong> {doctor.availability}</p>
+                            </div>
+                            <div className="flex gap-2 mt-4">
+                                <Button onClick={() => {}}>Edit</Button>
+                                <Button onClick={() => {}} variant="danger">Delete</Button>
+                            </div>
+                        </Card>
+                    ))}
+                </div>
+            );
+        };
+
+        const AdminReceptionDashboard: React.FC = () => {
+            return (
+                <div className="p-4">
+                    <h2 className="text-xl font-bold mb-4">Admin Reception Dashboard</h2>
+                    <p className="text-gray-600">Receptionist dashboard and appointment approvals will go here.</p>
+                </div>
+            );
+        };
+
+        const AnalyticsScreen: React.FC = () => {
+            return (
+                <div className="p-4">
+                    <h2 className="text-xl font-bold mb-4">Analytics Dashboard</h2>
+                    <p className="text-gray-600">Analytics data (appointments, revenue, patient demographics) will be displayed here.</p>
+                </div>
+            );
+        };
+
+        // Main App Component
+        const App: React.FC = () => {
+            const { currentRoute } = useNavigation();
+
+            const getRouteInfo = (route: string) => {
+                const [mainRoute, ...params] = route.split('/');
+                
+                switch (mainRoute) {
+                    case 'home': return { component: <HomeScreen />, title: 'Eye Clinic', showBack: false };
+                    case 'doctors': return { component: <DoctorsScreen />, title: 'Doctors', showBack: true };
+                    case 'doctor': return { 
+                        component: <DoctorDetailScreen doctorId={params[0]} />, 
+                        title: 'Doctor Details', 
+                        showBack: true 
+                    };
+                    case 'book': return { 
+                        component: <BookAppointmentScreen doctorId={params[0]} />, 
+                        title: 'Book Appointment', 
+                        showBack: true 
+                    };
+                    case 'treatments': return { component: <TreatmentsScreen />, title: 'Treatments', showBack: true };
+                    case 'treatment': return { 
+                        component: <TreatmentDetailScreen treatmentId={params[0]} />, 
+                        title: 'Treatment Details', 
+                        showBack: true 
+                    };
+                    case 'shop': return { component: <ShopScreen />, title: 'Shop', showBack: true };
+                    case 'vision': return { component: <VisionTestsScreen />, title: 'Vision Tests', showBack: true };
+                    case 'faq': return { component: <FAQScreen />, title: 'FAQs', showBack: true };
+                    case 'testimonials': return { component: <TestimonialsScreen />, title: 'Testimonials', showBack: true };
+                    case 'achievements': return { component: <AchievementsScreen />, title: 'Achievements', showBack: true };
+                    case 'profile': return { component: <PatientProfileScreen />, title: 'Profile', showBack: true };
+                    case 'admin': 
+                        if (params[0] === 'doctor') return { component: <AdminDoctorDashboard />, title: 'Admin: Doctors', showBack: true };
+                        if (params[0] === 'reception') return { component: <AdminReceptionDashboard />, title: 'Admin: Reception', showBack: true };
+                        break;
+                    case 'analytics': return { component: <AnalyticsScreen />, title: 'Analytics', showBack: true };
+                    default: return { component: <HomeScreen />, title: 'Eye Clinic', showBack: false };
+                }
+                return { component: <HomeScreen />, title: 'Eye Clinic', showBack: false };
+            };
+
+            const { component, title, showBack } = getRouteInfo(currentRoute);
+
+            return (
+                <div className="min-h-screen bg-gray-50 flex flex-col">
+                    <TopBar title={title} showBack={showBack} />
+                    <main className="flex-1 overflow-auto">
+                        {component}
+                    </main>
+                    <BottomNav />
+                </div>
+            );
+        };
+
+        // Root Component
+        const Root: React.FC = () => {
+            return (
+                <DataProvider>
+                    <Router>
+                        <App />
+                    </Router>
+                </DataProvider>
+            );
+        };
+
+        // Render App
+        ReactDOM.render(<Root />, document.getElementById('root'));
+    </script>
+</body>
+</html>
